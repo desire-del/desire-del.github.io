@@ -13,16 +13,24 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: MM
-email:
+title: SOUSSOU Koffi Désiré
+email: soussoudesire2019@gmail.com
+name: "autodidact"
+
+
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 twitter_username: username
-github_username: username
-minimal_mistakes_skin: default
-search: true
+github_username: desire-del
+minimal_mistakes_skin: neon
+
+logo: /assets/images/Logo.png
+head_scripts:
+  - https://code.jquery.com/jquery-3.2.1.min.js
+
+masthead_title: "Autodidact"
 
 # Build settings
 markdown: kramdown
@@ -58,9 +66,9 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "First Lastname"
+  name   : "SOUSSOU Koffi Désiré"
   avatar : "/assets/images/bio-photo.jpg"
-  bio    : "My awesome biography constrained to a sentence or two goes here."
+  bio    : "Turning data into stories, solutions, and innovations — passionate about Artificial Intelligence and making an impact."
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -70,7 +78,7 @@ author:
       url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
+      url: "https://github.com/desire-del"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/"
@@ -82,15 +90,17 @@ footer:
       url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
+      url: "https://github.com/desire-del"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/"
 
+
+
 defaults:
   # _posts
   - scope:
-      path: ""
+      path: "_posts"
       type: posts
     values:
       layout: single
@@ -99,6 +109,7 @@ defaults:
       comments: true
       share: true
       related: true
+  
   # _pages
   - scope:
       path: "_pages"
@@ -106,6 +117,18 @@ defaults:
     values:
       layout: single
       author_profile: true
+  
+  # _portfolio (ADD THIS SECTION)
+  - scope:
+      path: "_portfolio"
+      type: portfolio
+    values:
+      layout: single
+      author_profile: false
+      share: true
+      toc: true
+  
+
 
 category_archive:
   type: liquid
@@ -113,3 +136,8 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+collections:
+  portfolio:
+    output: true
+    permalink: /portfolio/:path/

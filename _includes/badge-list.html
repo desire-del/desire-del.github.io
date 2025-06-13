@@ -1,0 +1,70 @@
+{% if page.badges %}
+<div class="badges">
+  {% for badge in page.badges %}
+    <a href="{{ badge.url }}" class="badge {{ badge.class }}" target="_blank" rel="noopener noreferrer">
+      {{ badge.label }}
+    </a>
+  {% endfor %}
+</div>
+
+<style>
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.8em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: white !important;
+  transition: opacity 0.2s ease;
+}
+
+.badge:hover {
+  opacity: 0.85;
+}
+
+/* Color classes matching your README badges */
+.badge.blue {
+  background-color: #3776ab; /* Python blue */
+}
+
+.badge.yellowgreen {
+  background-color: #ffd43b; /* Transformers yellow */
+  color: #333 !important;
+}
+
+.badge.orange {
+  background-color: #e67e22; /* LoRA orange */
+}
+
+.badge.blueviolet {
+  background-color: #8a2be2; /* Flan-T5 purple */
+}
+
+.badge.brightgreen {
+  background-color: #4c1; /* Dataset green */
+}
+
+.badge.green {
+  background-color: #22863a; /* MIT License green */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .badges {
+    justify-content: center;
+  }
+}
+</style>
+{% endif %}
