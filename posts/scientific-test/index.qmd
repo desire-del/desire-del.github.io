@@ -1,0 +1,129 @@
+---
+title: "Understanding Diffusion Models — Scientific Rendering Test"
+description: "A draft for checking mathematical notation, static PyTorch code, and scientific figures."
+draft: true
+toc: true
+number-sections: true
+format:
+  html:
+    code-copy: true
+    code-overflow: scroll
+---
+
+# Introduction
+
+Diffusion models learn to reverse a gradual corruption process. This article focuses on the forward process: starting from a clean sample $x_0 \in \mathbb{R}^d$, we add Gaussian noise over $T$ steps. The formulation follows [Ho, Jain, and Abbeel (2020)](https://arxiv.org/abs/2006.11239).
+
+This draft checks mathematical typesetting, cross-references, static Python code, and an SVG illustration. The code is displayed for inspection; it is not executed when the article is rendered.
+
+# Mathematical formulation
+
+Let $0 < \beta_t < 1$ be the noise variance at step $t$, and define $\alpha_t = 1 - \beta_t$. A single forward transition is
+
+$$
+q(x_t \mid x_{t-1})
+= \mathcal{N}\!\left(x_t;\sqrt{\alpha_t}\,x_{t-1},\beta_t I_d\right).
+$$ {#eq-forward-transition}
+
+Repeated application of @eq-forward-transition gives a closed-form marginal. With $\bar{\alpha}_t = \prod_{s=1}^{t}\alpha_s$ and $\bar{\alpha}_0 = 1$,
+
+$$
+\begin{aligned}
+q(x_t \mid x_0)
+&= \mathcal{N}\!\left(x_t;\sqrt{\bar{\alpha}_t}\,x_0,(1-\bar{\alpha}_t)I_d\right), \\
+x_t
+&= \sqrt{\bar{\alpha}_t}\,x_0 + \sqrt{1-\bar{\alpha}_t}\,\epsilon,
+\qquad \epsilon \sim \mathcal{N}(0,I_d).
+\end{aligned}
+$$ {#eq-forward-marginal}
+
+Equation @eq-forward-marginal lets us sample any selected noise level directly, without computing the preceding steps. Conditional on $x_0$, its moments are
+
+$$
+\begin{aligned}
+\mathbb{E}_{\epsilon}[x_t \mid x_0]
+&= \sqrt{\bar{\alpha}_t}\,x_0, \\
+\operatorname{Cov}(x_t \mid x_0)
+&= (1-\bar{\alpha}_t)I_d.
+\end{aligned}
+$$ {#eq-forward-moments}
+
+For a two-dimensional sample, the covariance matrix is explicitly
+
+$$
+\Sigma_t =
+\begin{bmatrix}
+1-\bar{\alpha}_t & 0 \\
+0 & 1-\bar{\alpha}_t
+\end{bmatrix}.
+$$
+
+The diagonal entries in this matrix agree with @eq-forward-moments. As $\bar{\alpha}_t$ approaches zero, the signal contribution vanishes and the conditional distribution approaches $\mathcal{N}(0,I_d)$.
+
+# Implementation
+
+The following PyTorch function implements @eq-forward-marginal for a batch of images. `x0` has shape `[batch, channels, height, width]`; `t` is an integer tensor of shape `[batch]`. The schedule stores $T+1$ entries so that code indices match mathematical time: index zero represents the clean sample, and indices 1 through $T$ represent noisy samples.
+
+```python
+import torch
+
+
+def make_alpha_bar(steps, device, dtype):
+    betas = torch.linspace(1e-4, 0.02, steps, device=device, dtype=dtype)
+    cumulative = torch.cumprod(1.0 - betas, dim=0)
+    return torch.cat([torch.ones(1, device=device, dtype=dtype), cumulative])
+
+
+def forward_diffusion(x0, t, alpha_bar, noise=None):
+    """Sample q(x_t | x_0) for each image and return the noise used."""
+    if noise is None:
+        noise = torch.randn_like(x0)
+
+    # Broadcast one coefficient per image across channels and pixels.
+    retained_signal = alpha_bar[t].view(-1, 1, 1, 1)
+    signal_scale = retained_signal.sqrt()
+    noise_scale = (1.0 - retained_signal).sqrt()
+    xt = signal_scale * x0 + noise_scale * noise
+    return xt, noise
+```
+
+The inputs must share a device, and `noise`, when supplied, must have the same shape and dtype as `x0`. Time indices must lie between zero and `steps`. The example below constructs these inputs explicitly on the CPU.
+
+```python
+torch.manual_seed(7)
+
+steps = 1000
+side = 32
+coordinates = torch.linspace(-1.0, 1.0, side)
+yy, xx = torch.meshgrid(coordinates, coordinates, indexing="ij")
+disk = (xx.square() + yy.square() < 0.4).float()
+clean_image = (2.0 * disk - 1.0)[None, None, :, :]
+
+times = torch.tensor([0, 100, 500, 1000], dtype=torch.long)
+clean_batch = clean_image.repeat(len(times), 1, 1, 1)
+alpha_bar = make_alpha_bar(steps, clean_batch.device, clean_batch.dtype)
+noisy_batch, sampled_noise = forward_diffusion(clean_batch, times, alpha_bar)
+
+# This deliberately long line checks horizontal scrolling in the rendered code block.
+diagnostic_message = f"Forward diffusion diagnostics: times={times.tolist()}, batch_shape={tuple(noisy_batch.shape)}, retained_signal_variance={alpha_bar[times].tolist()}"
+print(diagnostic_message)
+
+# At t = 0, the signal coefficient is one and the noise coefficient is zero.
+assert torch.allclose(noisy_batch[0], clean_batch[0])
+```
+
+These are independent samples from the selected marginals, not successive states of one sampled Markov trajectory. The assertion documents an expected boundary condition; no execution results are claimed here. Pixel values are not clipped, because clipping would change the Gaussian corruption distribution.
+
+# Visualization
+
+@fig-forward-diffusion illustrates how recognizable structure becomes less visible as the noise contribution increases.
+
+![Schematic of forward diffusion: a clean shape is progressively obscured by noise. The textures are illustrative SVG effects, not samples generated by the PyTorch code.](forward-diffusion.svg){#fig-forward-diffusion fig-alt="Four panels connected by arrows: a clean disk, a slightly noisy disk, a heavily noisy disk, and noise with no visible disk." width=100%}
+
+The arrows represent increasing noise levels. The final panel depicts the limiting noise-dominated regime; a finite schedule generally retains a small signal component, as shown in @eq-forward-marginal.
+
+# Conclusion
+
+The forward process combines a scaled clean sample with Gaussian noise. Its closed-form marginal provides a compact implementation and makes the signal and noise contributions explicit.
+
+This article is a rendering fixture rather than an experimental result. Visual review should confirm equation numbering and links, matrix and alignment layout, section navigation, code highlighting and copy buttons, horizontal scrolling, and the figure caption and reference. Python execution and reverse-process modeling remain outside this phase.
