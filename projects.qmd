@@ -1,0 +1,21 @@
+---
+title: "Projects"
+description: "Systems, prototypes, and experiments: what I set out to build and what I learn along the way."
+page-layout: article
+title-block-banner: false
+body-classes: editorial-page
+---
+
+No project write-ups have been published here yet.
+
+As projects are documented, each entry will bring together the problem, technologies, approach, experiments, and results where available, with links to the code and related articles.
+
+In the meantime, [explore my writing](writing.qmd).
+
+<!-- Add verified project entries below as concise sections:
+## Actual project title
+Short technical description and technologies.
+Problem, approach, experiments, and observed results.
+Repository link and related writing.
+Do not publish this scaffold as a placeholder entry.
+-->

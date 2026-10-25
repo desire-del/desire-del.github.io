@@ -2,3 +2,9 @@
 /_site/
 .venv/
 .ipynb_checkpoints/
+
+**/*.quarto_ipynb
+
+.env
+.env.*
+!.env.example

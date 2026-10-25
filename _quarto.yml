@@ -1,22 +1,38 @@
 project:
   type: website
+  render:
+    - '**/*.qmd'
+    - '!posts/welcome/'
+    - '!posts/post-with-code/'
+    - '!posts/scientific-test/'
+  resources:
+    - assets/soussou.svg
+    - '!posts/welcome/**'
+    - '!posts/post-with-code/**'
+    - '!posts/scientific-test/**'
 
 website:
-  description: "A blog built with Quarto"
-  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
-  title: "Research & Engineering Notes"
+  draft-mode: gone
+  description: "Notes on ideas, research, and engineering."
+  site-url: https://desire-del.github.io/soussou/
+  title: "soussou."
+  favicon: assets/soussou.svg
   navbar:
+    logo: assets/soussou.svg
+    logo-alt: "soussou. home"
     right:
+      - text: Posts
+        href: writing.qmd
+      - text: Projects
+        href: projects.qmd
       - about.qmd
-      - icon: github
-        href: https://github.com/
-      - icon: bluesky
-        href: https://bsky.app/
+      - text: RSS
+        href: index.xml
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      light: [cosmo, brand, theme-light.scss]
+      dark: [cosmo, brand, theme-dark.scss]
     css: styles.css
 
 

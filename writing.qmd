@@ -1,0 +1,34 @@
+---
+title: "Writing"
+description: "The complete archive of published articles, technical notes, and explorations."
+listing:
+  id: archive
+  contents: posts
+  exclude:
+    draft: true
+  sort: "date desc"
+  template: article-preview.ejs
+  fields: [title, description, date, reading-time, categories]
+  date-format: "MMM D, YYYY"
+  categories: false
+  sort-ui: false
+  filter-ui: true
+page-layout: article
+title-block-banner: false
+body-classes: editorial-page
+---
+
+```{=html}
+<nav class="profile-links" aria-label="Public profiles">
+  <span>Elsewhere</span>
+  <a href="https://github.com/desire-del">GitHub</a>
+  <a href="https://www.linkedin.com/in/desiresoussou">LinkedIn</a>
+  <a href="https://huggingface.co/autodidacte228">Hugging Face</a>
+</nav>
+```
+
+[Browse by topic](topics.qmd)
+
+::: {#archive}
+:::
+

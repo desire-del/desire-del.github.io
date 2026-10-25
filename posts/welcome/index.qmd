@@ -1,6 +1,7 @@
 ---
 title: "Welcome To My Blog"
 author: "Tristan O'Malley"
+draft: true
 date: "2026-10-21"
 categories: [news]
 ---

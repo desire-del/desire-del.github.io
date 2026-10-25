@@ -4,16 +4,24 @@ image: profile.jpg
 about:
   template: jolla
   links:
-    - icon: bluesky
-      text: Bluesky
-      href: https://bsky.app/
-    - icon: linkedin
-      text: LinkedIn
-      href: https://linkedin.com
-    - icon: github
-      text: Github
-      href: https://github.com
-
+    - text: GitHub
+      href: https://github.com/desire-del
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/desiresoussou
+    - text: Hugging Face
+      href: https://huggingface.co/autodidacte228
+toc: false
+anchor-sections: false
 ---
 
-About this blog
+Hi, I'm Désiré.
+
+I'm a Data Science engineering student at Télécom Paris, pursuing a double degree with INPT.
+
+I'm curious about how things work, especially where mathematics, research, and engineering come together. I enjoy digging into ideas, understanding the theory behind them, and experimenting to see how they hold up in practice.
+
+Much of my work revolves around artificial intelligence, but my interests aren't limited to it. I like learning new things, building projects, and exploring questions that catch my attention.
+
+This blog is my space to share what I learn, document my experiments, and write about ideas I find worth exploring.
+
+## Elsewhere

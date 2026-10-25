@@ -1,0 +1,38 @@
+:::: {.list .article-previews}
+<% for (const item of items) { %>
+::: {.article-preview <%= metadataAttrs(item) %>}
+
+### [<span class="preview-title-text"><%= item.title %></span><span class="preview-arrow" aria-hidden="true">&rarr;</span>](<%- item.path %>) {.listing-title .no-anchor}
+
+<% if (item.description) { %>
+::: {.listing-description}
+<%= item.description %>
+:::
+<% } %>
+
+<% const categories = (item.categories || []).filter(Boolean); %>
+<% if (item.date || categories.length || item['reading-time']) { %>
+```{=html}
+<footer class="preview-meta">
+  <% if (item.date || item['reading-time']) { %>
+  <span class="preview-details">
+  <% if (item.date) { %>
+  <span class="listing-date"><%- item.date %></span>
+  <% } %>
+  <% if (item['reading-time']) { %>
+  <span class="listing-reading-time"><%- item['reading-time'] %> read</span>
+  <% } %>
+  </span>
+  <% } %>
+  <% if (categories.length) { %>
+  <span class="listing-categories">
+    <% categories.forEach(category => { %><a class="listing-category" href="topics.html#category=<%- encodeURIComponent(encodeURIComponent(category)) %>"><%- category %></a><% }); %>
+  </span>
+  <% } %>
+</footer>
+```
+<% } %>
+
+:::
+<% } %>
+::::

@@ -1,15 +1,133 @@
 ---
-title: "Research & Engineering Notes"
+title: "Ideas, experiments, and things I'm learning."
+description: "I write about concepts I'm exploring, systems I'm building, and questions I find interesting. Much of my work revolves around artificial intelligence, mathematics, and computing, but my curiosity extends beyond any single field."
 listing:
-  contents: posts
-  feed: true
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-page-layout: full
-title-block-banner: true
+  # Mark one published article featured: true. Never promote fixtures or demos.
+  - id: featured
+    contents: posts
+    include:
+      featured: true
+    exclude:
+      draft: true
+      path: "**/{welcome,post-with-code,scientific-test}/**"
+    sort: "date desc"
+    max-items: 1
+    template: article-preview.ejs
+    fields: [title, description, date, reading-time, categories]
+    date-format: "MMM D, YYYY"
+    categories: false
+    sort-ui: false
+    filter-ui: false
+  - id: writing
+    contents:
+      - posts
+      - "!posts/welcome/**"
+      - "!posts/post-with-code/**"
+    exclude:
+      featured: true
+      draft: true
+    sort: "date desc"
+    max-items: 5
+    template: article-preview.ejs
+    fields: [title, description, date, reading-time, categories]
+    date-format: "MMM D, YYYY"
+    categories: false
+    sort-ui: false
+    filter-ui: false
+  # Preserve index.xml independently of the homepage's selection and item limits.
+  - id: feed
+    contents: posts
+    exclude:
+      draft: true
+    feed: true
+    sort: "date desc"
+    type: default
+    fields: [title, categories]
+    categories: false
+    sort-ui: false
+    filter-ui: false
+page-layout: article
+title-block-banner: false
+body-classes: "editorial-home editorial-page"
+anchor-sections: false
 ---
 
+```{=html}
+<nav class="profile-links" aria-label="Public profiles">
+  <span>Elsewhere</span>
+  <a href="https://github.com/desire-del">GitHub</a>
+  <a href="https://www.linkedin.com/in/desiresoussou">LinkedIn</a>
+  <a href="https://huggingface.co/autodidacte228">Hugging Face</a>
+</nav>
+```
+
+:::: {.home-featured}
+## Featured Article
+
+::: {#featured}
+:::
+::::
+
+```{=html}
+<nav id="home-topics" aria-labelledby="home-topics-title">
+  <div class="section-heading">
+    <h2 id="home-topics-title">Explore by Topic</h2>
+    <a href="topics.html">All Topics <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div id="home-topic-links" class="topic-links"></div>
+  <p class="topics-empty">Browse the subjects covered in published articles.</p>
+</nav>
+
+<div class="section-heading">
+  <h2 id="latest-writing">Latest Writing</h2>
+  <a href="writing.html">View All <span aria-hidden="true">&rarr;</span></a>
+</div>
+```
+
+::: {#writing}
+:::
+
+::: {.writing-empty}
+New articles will appear here as they are published. [Browse the writing archive](writing.qmd).
+:::
+
+## Projects & Experiments
+
+A place for the systems I build and the experiments behind them, with room for the problem, approach, and lessons learned.
+
+[Explore Projects →](projects.qmd)
+
+:::: {.feed-source aria-hidden="true"}
+::: {#feed}
+:::
+::::
+
+```{=html}
+<script>
+// Quarto owns article selection and RSS. Turn its category labels into topic links.
+document.addEventListener("DOMContentLoaded", () => {
+  const labels = new Set();
+  const demoPaths = ["/posts/welcome/index.html", "/posts/post-with-code/index.html"];
+  // List.js detaches rows on other pages; its items retain the complete collection.
+  const feed = window["quarto-listings"]?.["listing-feed"];
+  const posts = feed ? feed.items.map(item => item.elm).filter(Boolean)
+    : document.querySelectorAll(".feed-source .quarto-post");
+  posts.forEach(post => {
+    const href = post.querySelector(".listing-title a")?.href;
+    if (!href || demoPaths.some(path => new URL(href).pathname.endsWith(path))) return;
+    post.querySelectorAll(".listing-category").forEach(tag => labels.add(tag.textContent.trim()));
+  });
+  const topicLink = label => {
+    const link = document.createElement("a");
+    // Quarto decodes once in parseHash and again when activating the category.
+    link.href = "topics.html#category=" + encodeURIComponent(encodeURIComponent(label));
+    link.textContent = label;
+    return link;
+  };
+  const topics = document.querySelector("#home-topic-links");
+  [...labels].filter(Boolean).sort((a, b) => a.localeCompare(b)).slice(0, 8)
+    .forEach(label => topics.append(topicLink(label)));
+});
+</script>
+```
 

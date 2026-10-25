@@ -4,5 +4,9 @@
 # (see https://quarto.org/docs/projects/code-execution.html#freeze)
 freeze: true
 
-# Enable banner style title blocks
+# Keep Quarto's native title, author, publication and optional modified date.
+# Dates belong in each article's front matter; there is no shared fallback date.
 title-block-banner: true
+title-block-style: default
+date-format: "MMM D, YYYY"
+body-classes: journal-post
