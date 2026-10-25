@@ -2,7 +2,7 @@
 
 Personal research blog built with Quarto 1.10.19.
 
-Published site: https://desire-del.github.io/soussou/
+Published site: https://desire-del.github.io/
 
 ## Publish
 

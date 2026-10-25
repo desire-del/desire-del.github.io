@@ -14,7 +14,7 @@ project:
 website:
   draft-mode: gone
   description: "Notes on ideas, research, and engineering."
-  site-url: https://desire-del.github.io/soussou/
+  site-url: https://desire-del.github.io/
   title: "soussou."
   favicon: assets/soussou.svg
   navbar:
