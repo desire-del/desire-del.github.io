@@ -41,7 +41,7 @@ listing:
       draft: true
     feed: true
     sort: "date desc"
-    type: default
+    template: article-preview.ejs
     fields: [title, categories]
     categories: false
     sort-ui: false
