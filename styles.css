@@ -1,0 +1,581 @@
+/* Small readability adjustments; Quarto owns layout and scientific components. */
+:root {
+  --blog-text: #35332f;
+  --blog-heading: #252420;
+  --blog-editorial: #58534c;
+  --blog-muted: #716b63;
+  --blog-secondary: #716b63;
+  --blog-code: #6b493a;
+  --blog-preview-bg: #fffdfa;
+  --blog-preview-hover-bg: #ffffff;
+  --blog-preview-border: #e5e0d7;
+  --blog-preview-hover-border: #bca594;
+  --blog-accent-wash: #eee4d9;
+  --blog-selection-bg: #ead5c5;
+  --bs-link-color: #934a34;
+  --bs-link-color-rgb: 147, 74, 52;
+  --bs-link-hover-color: #713622;
+  --bs-link-hover-color-rgb: 113, 54, 34;
+}
+
+/* Quarto switches this class and the Bootstrap/highlighting stylesheet together. */
+body.quarto-dark {
+  --blog-text: #dedbd5;
+  --blog-heading: #f4efe6;
+  --blog-editorial: #c5bfb5;
+  --blog-muted: #aaa49b;
+  --blog-secondary: #aaa49b;
+  --blog-code: #e0bc9f;
+  --blog-preview-bg: #252527;
+  --blog-preview-hover-bg: #2b2a2c;
+  --blog-preview-border: #353436;
+  --blog-preview-hover-border: #796455;
+  --blog-accent-wash: #3b302b;
+  --blog-selection-bg: #574136;
+  --bs-link-color: #dfad93;
+  --bs-link-color-rgb: 223, 173, 147;
+  --bs-link-hover-color: #f1cbb6;
+  --bs-link-hover-color-rgb: 241, 203, 182;
+}
+
+::selection {
+  background-color: var(--blog-selection-bg);
+  color: var(--blog-heading);
+}
+
+body {
+  background: var(--bs-body-bg);
+  color: var(--blog-text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+main.content {
+  width: 100%;
+  max-width: 780px;
+  min-width: 0;
+  margin-inline: auto;
+}
+
+main.content h1,
+.quarto-title .title {
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+main.content h2 { font-size: 1.5rem; }
+main.content h3 { font-size: 1.25rem; }
+
+/* Existing articles use banner titles; keep those plain and compact. */
+.quarto-title-banner {
+  background: var(--bs-body-bg);
+  color: var(--blog-text);
+  padding-block: 1.5rem;
+}
+
+.quarto-title-meta,
+.listing-date,
+.listing-description {
+  color: var(--blog-secondary);
+}
+
+/* Keep the existing left/right navigation inside a balanced desktop width. */
+#quarto-header .navbar {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+#quarto-header .navbar-container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2vw, 2rem);
+}
+
+#quarto-header .navbar-brand-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#quarto-header .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--blog-heading);
+  white-space: nowrap;
+}
+
+#quarto-header .navbar-logo {
+  width: 24px;
+  height: 24px;
+  max-height: 24px;
+  padding: 0;
+}
+
+body.quarto-dark #quarto-header .navbar-logo {
+  filter: brightness(1.6);
+}
+
+#quarto-header .nav-link { font-size: 0.9rem; }
+
+#quarto-header .nav-link.active .menu-text {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.4em;
+}
+
+/* A quiet moon/sun icon, retaining Quarto's native toggle and saved preference. */
+#quarto-header .quarto-color-scheme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.4rem;
+  color: var(--blog-muted);
+  opacity: 1;
+  text-decoration: none;
+}
+
+#quarto-header .quarto-color-scheme-toggle:hover {
+  color: var(--bs-link-color);
+  background-color: var(--blog-accent-wash);
+}
+
+#quarto-header .quarto-color-scheme-toggle:focus-visible {
+  outline: 2px solid var(--bs-link-color);
+  outline-offset: 2px;
+}
+
+#quarto-header .quarto-color-scheme-toggle .bi::before {
+  content: "\f497";
+  background-image: none;
+  width: 1rem;
+  height: 1rem;
+  font-size: 1rem;
+  vertical-align: 0;
+}
+
+body.quarto-dark #quarto-header .quarto-color-scheme-toggle .bi::before {
+  content: "\f5a2";
+}
+
+/* Let wide equations scroll without changing MathJax's internal layout. */
+main.content .math.display {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-block: 0.25rem;
+}
+
+/* Article-only refinements; retain Quarto's title, metadata, and TOC layout. */
+.journal-post #title-block-header {
+  margin-bottom: 1.75rem;
+}
+
+.journal-post .quarto-title-banner {
+  margin-bottom: 0;
+  padding-block: 1.75rem 0.75rem;
+}
+
+.journal-post .quarto-title .title {
+  color: var(--blog-heading);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.65rem;
+}
+
+.journal-post .quarto-title :is(.description, .subtitle) {
+  max-width: 65ch;
+  color: var(--blog-editorial);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.journal-post #title-block-header .quarto-title-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin-top: 0;
+  color: var(--blog-muted);
+}
+
+.journal-post #title-block-header .quarto-title-meta:not(:has(> *)) {
+  display: none;
+}
+
+.journal-post #title-block-header .quarto-title-meta > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.4rem;
+}
+
+.journal-post #title-block-header :is(.quarto-title-meta-heading, .quarto-title-meta-contents) {
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: none;
+  opacity: 1;
+  margin: 0;
+}
+
+.journal-post #title-block-header .quarto-title-meta-contents p {
+  margin: 0;
+}
+
+main.quarto-banner-title-block section > :is(h1, h2, h3) {
+  margin-block: 2rem 0.75rem;
+  line-height: 1.3;
+}
+
+main.quarto-banner-title-block section > h1 { font-size: 1.75rem; }
+
+/* Prose code only: do not restyle highlighted code or notebook outputs. */
+main.quarto-banner-title-block section > p code:not(.sourceCode),
+main.quarto-banner-title-block section > :is(ul, ol) li code:not(.sourceCode):not(pre code) {
+  color: var(--blog-code);
+  font-size: 0.9em;
+}
+
+/* Keep native highlighting, scrolling, copy controls, and annotation gutters. */
+main.quarto-banner-title-block pre.sourceCode:not(.code-annotation-code) {
+  padding: 0.75rem 2.5rem 0.75rem 0.85rem;
+  line-height: 1.55;
+}
+
+main.quarto-banner-title-block figure.quarto-float {
+  margin-block: 1.5rem;
+}
+
+main.quarto-banner-title-block .quarto-float-caption {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--blog-secondary);
+}
+
+/* Markdown tables, including the reference article's generated table. */
+main.quarto-banner-title-block section > table.table,
+main.quarto-banner-title-block .cell > table.table,
+main.quarto-banner-title-block figure.quarto-float-tbl table.table {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-block: 1.25rem;
+}
+
+/* Dark article reading palette; discovery pages and the light theme stay unchanged. */
+body.quarto-dark.journal-post :is(#title-block-header, #quarto-document-content, #quarto-margin-sidebar) {
+  --blog-text: #d5d7dc;
+  --blog-heading: #eceef2;
+  --blog-editorial: #bec2ca;
+  --blog-muted: #a4a9b4;
+  --blog-secondary: #a4a9b4;
+  --blog-code: #b8cde5;
+  --blog-selection-bg: #35465c;
+  --bs-heading-color: #eceef2;
+  --bs-secondary-color: #a4a9b4;
+  --bs-border-color: #41434b;
+  --bs-link-color: #a9c8ed;
+  --bs-link-color-rgb: 169, 200, 237;
+  --bs-link-hover-color: #cbdff8;
+  --bs-link-hover-color-rgb: 203, 223, 248;
+  color: var(--blog-text);
+}
+
+body.quarto-dark.journal-post main.content blockquote {
+  color: var(--blog-editorial);
+  border-left-color: #66758b;
+}
+
+body.quarto-dark.journal-post main.content .table {
+  --bs-table-color: var(--blog-text);
+  --bs-table-border-color: var(--bs-border-color);
+}
+
+body.quarto-dark.journal-post main.content code:not(pre code):not(.sourceCode) {
+  color: var(--blog-code);
+  background-color: #292c33;
+}
+
+/* Keep Quarto's token markup, code controls, and notebook output intact. */
+body.quarto-dark.journal-post main.content div.sourceCode,
+body.quarto-dark.journal-post main.content pre.sourceCode {
+  background-color: #23262d;
+  color: #d5d7dc;
+  border-color: #41434b;
+}
+
+body.quarto-dark.journal-post main.content pre.sourceCode code { color: inherit; }
+
+/* Plain Jupyter results use <pre><code>, without the sourceCode class. */
+body.quarto-dark.journal-post main.content .cell-output > pre {
+  color: var(--blog-text);
+  background-color: transparent;
+}
+
+body.quarto-dark.journal-post main.content .cell-output > pre > code {
+  color: inherit;
+  background-color: transparent;
+}
+
+body.quarto-dark.journal-post pre.sourceCode :is(.co, .do, .cv, .an) { color: #a0a7b4; }
+body.quarto-dark.journal-post pre.sourceCode :is(.kw, .cf, .dt, .pp) { color: #c4b5e5; }
+body.quarto-dark.journal-post pre.sourceCode :is(.st, .ch, .sc, .ss, .vs, .im) { color: #a7c9b1; }
+body.quarto-dark.journal-post pre.sourceCode :is(.dv, .bn, .fl, .cn) { color: #dbb88c; }
+body.quarto-dark.journal-post pre.sourceCode :is(.fu, .bu, .ex) { color: #9fc5e8; }
+body.quarto-dark.journal-post pre.sourceCode :is(.at, .va, .ot, .re) { color: #b3c9d3; }
+body.quarto-dark.journal-post pre.sourceCode .op { color: #c3c7d0; }
+body.quarto-dark.journal-post pre.sourceCode :is(.al, .er, .wa) { color: #e5a3a8; }
+body.quarto-dark.journal-post pre.sourceCode .in { color: #dbb88c; }
+
+/* Editorial discovery pages; scientific article styles above stay unchanged. */
+.editorial-page { color: var(--blog-editorial); }
+
+.editorial-page main.content :is(h1, h2, h3),
+.editorial-page .quarto-title .title {
+  color: var(--blog-heading);
+  font-weight: 500;
+}
+
+.editorial-page #title-block-header {
+  margin-block: 0.75rem 1.5rem;
+}
+
+.editorial-page #title-block-header .title {
+  font-size: clamp(1.75rem, 4vw, 2.1rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.editorial-page #title-block-header .description {
+  max-width: 68ch;
+  font-size: 1rem;
+  color: var(--blog-editorial);
+}
+
+.topics-page #topic-controls { margin-bottom: 1.5rem; }
+
+.editorial-page .profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.15rem;
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+}
+
+.editorial-page .profile-links > span { color: var(--blog-muted); }
+.editorial-page .profile-links a {
+  white-space: nowrap;
+  text-underline-offset: 0.25em;
+}
+
+.editorial-home main.content {
+  margin-top: 0;
+  padding-top: 2.5rem;
+}
+
+.editorial-home #title-block-header { margin-block: 0 2rem; }
+.editorial-home #title-block-header .quarto-title-meta:not(:has(> *)) { display: none; }
+.editorial-home #home-topics { margin-bottom: 2rem; }
+
+.editorial-home .section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.editorial-home .section-heading h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.35rem;
+}
+
+.editorial-home .section-heading a { font-size: 0.85rem; }
+.editorial-home #home-topics-title { font-size: 1rem; }
+
+.editorial-page .topic-links,
+.topics-page .quarto-listing-category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.editorial-page .topic-links a,
+.topics-page .quarto-listing-category .category {
+  padding-block: 0.3rem;
+  font-size: 0.85rem;
+  text-underline-offset: 0.3em;
+}
+
+.topics-page .quarto-listing-category .category { color: var(--blog-muted); }
+
+.topics-page .category:is(:hover, [aria-pressed="true"]) {
+  color: var(--bs-link-color);
+  text-decoration: underline;
+}
+
+.editorial-page :is(a, [role="button"]):focus-visible {
+  outline: 2px solid var(--bs-link-color);
+  outline-offset: 3px;
+}
+
+.editorial-page #quarto-margin-sidebar[hidden],
+.editorial-home .feed-source,
+.editorial-home .home-featured:not(:has(.article-preview)),
+.editorial-home #listing-writing:not(:has(.article-preview)),
+.editorial-home:has(#listing-writing .article-preview) .writing-empty,
+.editorial-home:has(.topic-links a) .topics-empty,
+.topics-page:has(#topic-controls .category) .topics-empty {
+  display: none;
+}
+
+.editorial-page .topics-empty {
+  font-size: 0.9rem;
+  color: var(--blog-muted);
+  margin-bottom: 0.5rem;
+}
+
+.editorial-page .quarto-listing { padding-top: 0; margin-right: 0; }
+
+/* Shared editorial entries: headline, standfirst, then a quiet metadata footer. */
+.editorial-page .article-preview {
+  padding: 1.25rem clamp(1rem, 3vw, 1.5rem);
+  margin-bottom: 0.85rem;
+  background-color: var(--blog-preview-bg);
+  border: 1px solid var(--blog-preview-border);
+  border-radius: 0.65rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.editorial-page .article-preview:last-child { margin-bottom: 0; }
+
+.editorial-page .article-preview:is(:hover, :focus-within) {
+  background-color: var(--blog-preview-hover-bg);
+  border-color: var(--blog-preview-hover-border);
+}
+
+.editorial-page .article-preview h3.listing-title {
+  margin: 0 0 0.55rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2.4vw, 1.45rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+.editorial-page .article-preview .listing-title a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--blog-heading);
+  text-decoration: none;
+}
+
+.editorial-page .preview-title-text { min-width: 0; }
+
+.editorial-page .preview-arrow {
+  flex: 0 0 auto;
+  color: var(--blog-muted);
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.45rem;
+  border-radius: 50%;
+}
+
+.editorial-page .article-preview .listing-title a:is(:hover, :focus-visible),
+.editorial-page .article-preview:is(:hover, :focus-within) .preview-arrow {
+  color: var(--bs-link-color);
+}
+
+.editorial-page .article-preview:is(:hover, :focus-within) .preview-arrow {
+  background-color: var(--blog-accent-wash);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .editorial-page .article-preview,
+  .editorial-page .preview-arrow {
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+}
+
+.editorial-page .article-preview .listing-description {
+  max-width: 64ch;
+  color: var(--blog-editorial);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.editorial-page .article-preview .listing-description > :last-child { margin-bottom: 0; }
+
+.editorial-page .preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.45rem 1rem;
+  margin-top: 0.8rem;
+  color: var(--blog-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.editorial-page .preview-details,
+.editorial-page .preview-meta .listing-categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.65rem;
+  margin: 0;
+  padding: 0;
+}
+
+.editorial-page .preview-details > * + *::before {
+  content: "\00b7";
+  margin-right: 0.65rem;
+}
+
+.editorial-page .preview-meta :is(.listing-date, a) { color: inherit; }
+
+.editorial-page .preview-meta .listing-category {
+  border: 0;
+  border-bottom: 1px solid var(--blog-preview-border);
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  text-transform: none;
+  text-decoration: none;
+}
+
+.editorial-page .preview-meta a:is(:hover, :focus-visible) {
+  color: var(--bs-link-color);
+  border-bottom-color: currentColor;
+}
+
+.editorial-home #projects-experiments { margin-top: 2rem; }
+.editorial-home #projects-experiments > h2 {
+  margin-block: 0 0.75rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.35rem;
+}
+
+.editorial-home .home-featured { margin-bottom: 1.5rem; }
+.editorial-home .home-featured h2 { font-size: 1rem; border: 0; }
+
+@media (max-width: 767.98px) {
+  .editorial-home main.content { padding-top: 1.75rem; }
+  .editorial-home #title-block-header,
+  .editorial-home #home-topics { margin-bottom: 1.5rem; }
+  .editorial-home #projects-experiments { margin-top: 1.5rem; }
+}
