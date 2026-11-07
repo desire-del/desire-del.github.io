@@ -1,1 +1,1 @@
-Sitemap: https://desire-del.github.io/soussou/sitemap.xml
+Sitemap: https://desire-del.github.io/sitemap.xml

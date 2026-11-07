@@ -6,10 +6,10 @@
       version="2.0">
 <channel>
 <title>soussou.</title>
-<link>https://desire-del.github.io/soussou/</link>
-<atom:link href="https://desire-del.github.io/soussou/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://desire-del.github.io/</link>
+<atom:link href="https://desire-del.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>I write about concepts I&#39;m exploring, systems I&#39;m building, and questions I find interesting. Much of my work revolves around artificial intelligence, mathematics, and computing, but my curiosity extends beyond any single field.</description>
 <generator>quarto-1.10.19</generator>
-<lastBuildDate>Sun, 25 Oct 2026 14:37:27 GMT</lastBuildDate>
+<lastBuildDate>Sat, 07 Nov 2026 18:24:23 GMT</lastBuildDate>
 </channel>
 </rss>
